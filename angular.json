@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "feature-request-app"
+    }
+  },
+  "defaultProject": "feature-request-app",
+  "cli": {
+    "analytics": false
+  }
 }
