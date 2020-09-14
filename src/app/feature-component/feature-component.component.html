@@ -1,98 +1,117 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="container">
+  <h2>WCF Insurance's Feature Request App</h2>
+  <div class="form-group">
+    <label>
+      Title:
+    </label>
+    <input ngModel type="text" formControlName="title" class="form-control" />
+  </div>
 
-<body align ="center">
+  <div class="form-group">
+    <label>
+      Description:
+    </label>
+    <textarea
+      ngModel
+      type="text"
+      formControlName="description"
+      class="form-control"
+    >
+    </textarea>
+  </div>
 
-        <h2> WCF Insurance's Feature Request App</h2>
-    
-    <div>
-    <form #featureData="ngForm" (ngSubmit)="onSubmission(featureData.value)" align ="center">
-      
-    
-        <div>
-       
-              <label>Title  </label>
-            <input ngModel name="title" type="text" id="title"  >
-        </div>
-        <br>
-        <div >
-      
-              <label>Description  </label>
-              <textarea ngModel name="description"> </textarea>
-    
-        </div>
-        <br>
-        <div >
-      
-              <label>Client Name  </label>
-              <input type="text" name="client" ngModel/>
-       
-        </div>
-        <br>
-        <div >
-    
-              <label>Priority  </label>
-              <input type="number" name="priority" ngModel/>
-    
-        </div>
-        <br>
-    
-        <div>
-    
-              <label>Target Date  </label>
-            <input type="date" name="targetDate" ngModel/>
-    
-        </div>
-        <br>
-    
-        <div>
-     
-              <label>Product Area  </label>
-           <input type="text" name="parea" ngModel/>
-    
-        </div>
-        <br>
-    
-        <div>
-    
-              <label>Email  </label>
-              <input type="email" name="email" ngModel/>
-       
-        </div>
-          <br>
-       <div>
-              <input type="submit" class= "btn btn-primary" name="submit"> 
-      
-            </div>
-    
-    </form>
-    
-    </div>
+  <div class="form-group">
+    <label>
+      Client Name:
+    </label>
+    <input ngModel type="text" formControlName="client" class="form-control" />
+  </div>
 
+  <div class="form-group">
+    <label>
+      Priority:
+    </label>
+    <input
+      ngModel
+      type="number"
+      min="1"
+      formControlName="priority"
+      class="form-group"
+      class="form-control"
+    />
+  </div>
 
+  <div class="form-group">
+    <label>
+      Target Date:
+    </label>
+    <input
+      ngModel
+      type="date"
+      formControlName="targetDate"
+      class="form-control"
+    />
+  </div>
 
-    <div class="container">
-            <table class="table table-bordered table-striped">
-              <thead>
-              <tr>
-                <th>ID </th>
-                <th>Priority</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Target Date</th>
-                <th>Product Area</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let feature of features">
-                <td><span>{{feature.id}}</span></td>
-                <td><span>{{feature.priority}}</span></td>
-                <td><span>{{feature.title}}</span></td>
-                <td><span>{{feature.description}}</span></td>
-                <td><span>{{feature.targetDate}}</span></td>
-                <td><span>{{feature.productArea}}</span></td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+  <div class="form-group">
+    <label>
+      Product Area:
+    </label>
+    <input ngModel type="text" formControlName="parea" class="form-control" />
+  </div>
 
+  <button [disabled]="registerForm.invalid" class="btn btn-primary">
+    Submit
+  </button>
+</form>
 
-    </body>
+<br />
+<br />
+
+<div class="container">
+  <h2>Get All Previously Submitted Feature Requests</h2>
+  <button (click)="getAllRecords()" class="btn btn-primary">
+    Get All Submitted Features
+  </button>
+  <br />
+  <br />
+
+  <table class="table table-bordered table-striped" *ngIf="allrecords">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Priority</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Client Name</th>
+        <th>Target Date</th>
+        <th>Product Area</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let feature of allrecords">
+        <td>
+          <span>{{ feature.id }}</span>
+        </td>
+        <td>
+          <span>{{ feature.priority }}</span>
+        </td>
+        <td>
+          <span>{{ feature.title }}</span>
+        </td>
+        <td>
+          <span>{{ feature.description }}</span>
+        </td>
+        <td>
+          <span>{{ feature.client }}</span>
+        </td>
+        <td>
+          <span>{{ feature.targetDate }}</span>
+        </td>
+        <td>
+          <span>{{ feature.productArea }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FeatureapiService } from '../featureapi.service';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 export class Feature {
   constructor(
@@ -19,11 +20,42 @@ export class Feature {
   styleUrls: ['./feature-component.component.css']
 })
 export class FeatureComponentComponent implements OnInit {
+  
 
-  constructor(private featureService:FeatureapiService) { }
+  registerForm: FormGroup;
+  allrecords:any;
 
-  onSubmission(data) {
-    this.featureService.createNewFeature(data);
+  constructor(private featureService:FeatureapiService, private fb:FormBuilder) { }
+
+  ngOnInit(){
+    this.registerForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      client: ['', Validators.required],
+      priority: ['', Validators.required],
+      targetDate: ['', Validators.required],
+      parea: ['', Validators.required],
+    
+    })
+  }
+  onSubmit() {
+    console.log("Testing");
+    this.featureService.createNewFeature(this.registerForm.value).subscribe((result)=> {
+      console.log("result",result);
+      if((result as any).title==null ) {
+        alert("Error Occured While Saving new Feature Request");
+      } else {
+        alert("New Feature Request Created Successfully");
+      }
+    })
+  }
+
+  getAllRecords(){
+    this.featureService.getAllRequestedFeatures().subscribe((response)=>{
+      console.warn("response",response);
+      this.allrecords=response;
+
+    })
   }
 
 }
